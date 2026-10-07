@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="AfriAssistive">
+  <circle cx="16" cy="16" r="16" fill="#0E3B34"/>
+  <circle cx="16" cy="16" r="12.9" fill="none" stroke="#14BBA6" stroke-width="2"/>
+  <g fill="#FBF9F6" transform="translate(16 16.2) scale(1.16) translate(-15.4 -16)">
+    <circle cx="15.1" cy="10.4" r="3.15"/>
+    <path d="M12.55 14.1c1.25-.6 3.15-.5 4.35.5 1.1.9 1.5 1.75 3.05 1.55 1.8-.25 3.2-1.95 3.4-3.9.4 2.4-.5 4.85-2.5 6.2-1.1.8-2.45 1-3.65.7v4.7c0 .78-.62 1.4-1.4 1.4h-1.15c-.78 0-1.4-.62-1.4-1.4v-5.35c-1.15-.55-2.15-1.65-2.45-3-.2-.75.55-1.25 1.75-.4z"/>
+  </g>
+</svg>

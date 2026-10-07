@@ -1,0 +1,144 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-ivory: #fbf9f6;
+  --color-cream: #f3eee4;
+  --color-paper: #fffcf8;
+  --color-forest: #0e3b34;
+  --color-forest-deep: #07241f;
+  --color-teal: #14bba6;
+  --color-teal-deep: #0e8f7f;
+  --color-leaf: #a7e3b1;
+  --color-charcoal: #1a1f1e;
+  --color-ink: #24302e;
+  --color-muted-ink: #5c6663;
+  --color-line: #d8d2c6;
+
+  --color-background: #fbf9f6;
+  --color-foreground: #1a1f1e;
+  --color-primary: #0e3b34;
+  --color-primary-foreground: #fbf9f6;
+  --color-secondary: #e8f6f2;
+  --color-secondary-foreground: #0e3b34;
+  --color-accent: #14bba6;
+  --color-accent-foreground: #07241f;
+  --color-muted: #efeae0;
+  --color-muted-foreground: #5c6663;
+  --color-card: #fffcf8;
+  --color-card-foreground: #1a1f1e;
+  --color-popover: #fffcf8;
+  --color-popover-foreground: #1a1f1e;
+  --color-border: #d8d2c6;
+  --color-input: #d8d2c6;
+  --color-ring: #14bba6;
+  --color-destructive: #9b2c2c;
+  --color-destructive-foreground: #fbf9f6;
+  --color-success: #0e3b34;
+  --color-warning: #8a5a12;
+
+  --font-sans: "Atkinson Hyperlegible", "Segoe UI", "Liberation Sans", sans-serif;
+  --font-display: "Fraunces", "Palatino Linotype", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius: 12px;
+
+  --shadow-border:
+    0px 0px 0px 1px rgba(14, 59, 52, 0.08),
+    0px 1px 2px -1px rgba(14, 59, 52, 0.08),
+    0px 8px 24px -12px rgba(14, 59, 52, 0.16);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+    background: var(--color-ivory);
+    color: var(--color-charcoal);
+    overflow-x: clip;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: var(--app-font-size, 1rem);
+    line-height: 1.55;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-teal);
+    outline-offset: 3px;
+  }
+
+  html[data-contrast="true"] {
+    --color-background: #ffffff;
+    --color-foreground: #000000;
+    --color-muted-foreground: #1a1f1e;
+    --color-border: #1a1f1e;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 80;
+  border-radius: 8px;
+  background: var(--color-forest);
+  color: var(--color-ivory);
+  padding: 0.75rem 1rem;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+.surface-card {
+  background: var(--color-paper);
+  box-shadow: var(--shadow-border);
+}
+
+.hero-wash {
+  background:
+    radial-gradient(1200px 480px at 80% -10%, color-mix(in oklab, var(--color-leaf) 35%, transparent), transparent 60%),
+    radial-gradient(900px 420px at -10% 20%, color-mix(in oklab, var(--color-teal) 18%, transparent), transparent 55%),
+    var(--color-ivory);
+}

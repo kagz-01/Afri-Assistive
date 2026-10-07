@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "AfriAssistive",
+      "hasCanvas": false,
+      "bodyTextLen": 2910,
+      "bodyTextHash": "6b144b64c579b711c167596f34f424c0609b92bdeea77590e751d5acb52cbeb5",
+      "bodyTextPrefix": "Skip to content AfriAssistive Home Request a device Kiswahili Op",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "AfriAssistive",
+      "hasCanvas": false,
+      "bodyTextLen": 2888,
+      "bodyTextHash": "e0aaf2451c7d808e2ee0ad83ac708fe656b87794318f6ab2c295740f94b15092",
+      "bodyTextPrefix": "Skip to content AfriAssistive Kiswahili Open the platform Kenya ",
+      "horizontalOverflow": true,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}
