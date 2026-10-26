@@ -1,0 +1,38 @@
+{
+  "url": "http://127.0.0.1:8081/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "AfriAssistive",
+      "hasCanvas": false,
+      "bodyTextLen": 3559,
+      "bodyTextHash": "bcea745443587f5c7fd95b20860e3e45d96d2f811d947d5f06c7da24b580c6fc",
+      "bodyTextPrefix": "Skip to content AfriAssistive Home Request a device Report a fau",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "AfriAssistive",
+      "hasCanvas": false,
+      "bodyTextLen": 3549,
+      "bodyTextHash": "24e1cb38bf4bd24d7d0a81f25860b099299750243c0ed0ffde083967fef73394",
+      "bodyTextPrefix": "Skip to content AfriAssistive Platform Kenya · Assistive technol",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": false,
+  "baselineReasons": []
+}

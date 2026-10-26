@@ -14,9 +14,10 @@ import { SiteFooter, SiteHeader } from "@/components/layout/site-header";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { WHO_STEPS } from "@/lib/demo-data";
+import { WHO_STEPS, MODELS } from "@/lib/demo-data";
 import { t } from "@/lib/i18n";
 import { useAfriStore } from "@/lib/store";
+import { kes } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({ component: Home });
 
@@ -51,6 +52,9 @@ function Home() {
               </Button>
               <Button asChild size="lg" variant="outline">
                 <Link to="/app">{t(locale, "ctaPlatform")}</Link>
+              </Button>
+              <Button asChild size="lg" variant="ghost">
+                <Link to="/fault">{t(locale, "navFault")}</Link>
               </Button>
               <Button asChild size="lg" variant="ghost">
                 <Link to="/d/$token" params={{ token: "9fK3x142" }}>
@@ -240,6 +244,31 @@ function Home() {
               ? "Bila ruzuku, tunahitaji takriban vifaa 4,000–4,500 kwa mwaka, au mchanganyiko wa juu wa orthoses na mipango ya huduma."
               : "Without grants, break-even needs about 4,000–4,500 devices a year, or a richer mix of orthoses and care plans."}
           </p>
+          <h3 className="mt-10 font-display text-2xl font-semibold text-forest">
+            {locale === "sw" ? "Pengo la ushuru" : "What SHA does not cover"}
+          </h3>
+          <p className="mt-2 max-w-2xl text-sm text-ink">
+            {locale === "sw"
+              ? "Orodha ya 2025 inaweka kiti cha magurudumu KES 15,000, na tu ikiwa bajeti imetolewa. Gharama yetu ya kujenga ni juu zaidi. Pengo linafadhiliwa, haliuzwi kama faida."
+              : "The 2025 tariff lists a wheelchair at KES 15,000, and only if the budget is released. Our build cost is higher. That difference is funded. It is not booked as profit."}
+          </p>
+          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+            {MODELS.map((m) => {
+              const gap = m.shaTariffKes == null ? m.costKes : Math.max(0, m.costKes - m.shaTariffKes);
+              return (
+                <li key={m.id} className="rounded-xl border border-line bg-paper p-4">
+                  <p className="font-medium text-forest">{m.name}</p>
+                  <p className="mt-2 text-sm tabular-nums text-ink">
+                    {locale === "sw" ? "Gharama" : "Cost"} {kes(m.costKes)} · SHA{" "}
+                    {m.shaTariffKes == null ? (locale === "sw" ? "haijaorodheshwa" : "not listed") : kes(m.shaTariffKes)}
+                  </p>
+                  <p className="text-sm tabular-nums text-teal-deep">
+                    {locale === "sw" ? "Pengo" : "Unfunded"} {kes(gap)}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
         </section>
       </main>
       <SiteFooter />

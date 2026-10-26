@@ -1,5 +1,5 @@
 import { i as __toESM } from "../../_runtime.mjs";
-import { a as dispatchDiscreteCustomEvent, c as createContextScope, d as useComposedRefs, f as require_react_dom, i as Primitive, m as require_react, o as useControllableState, p as require_jsx_runtime, r as Presence, s as useLayoutEffect2, u as createSlot } from "./react-checkbox+[...].mjs";
+import { a as Presence, c as createContextScope, d as useComposedRefs, f as require_react_dom, i as dispatchDiscreteCustomEvent, m as require_react, o as useControllableState, p as require_jsx_runtime, r as Primitive, s as useLayoutEffect2, u as createSlot } from "./react-checkbox+[...].mjs";
 import { t as composeEventHandlers } from "../radix-ui__primitive.mjs";
 import { __assign, __rest, __spreadArray } from "tslib";
 //#region node_modules/@radix-ui/react-id/dist/index.mjs

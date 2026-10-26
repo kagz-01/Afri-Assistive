@@ -24,6 +24,12 @@ export function SiteHeader() {
           >
             {t(locale, "navRequest")}
           </Link>
+          <Link
+            to="/fault"
+            className="rounded-md px-3 py-2 text-sm font-medium text-forest hover:bg-cream"
+          >
+            {t(locale, "navFault")}
+          </Link>
         </nav>
         <div className="flex items-center gap-2">
           <A11yBar />
@@ -45,6 +51,9 @@ export function SiteFooter() {
     <footer className="border-t border-line bg-cream">
       <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 md:flex-row md:items-center md:justify-between">
         <p className="text-sm text-muted-ink">{t(locale, "footerRights")}</p>
+        <Link to="/fault" className="text-sm font-medium text-forest">
+          {t(locale, "navFault")}
+        </Link>
         <p className="text-xs text-muted-ink">{t(locale, "demoNote")}</p>
       </div>
     </footer>

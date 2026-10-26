@@ -112,7 +112,50 @@ export interface DeviceModel {
   tier: 1 | 2 | 3;
   priceKes: number;
   costKes: number;
+  /** Published SHA tariff. Null when the device is not on the benefit list. */
+  shaTariffKes: number | null;
   standard: string;
+  partSkus: string[];
+}
+
+export interface SparePart {
+  sku: string;
+  name: string;
+  modelIds: string[];
+  stock: number;
+  reorderAt: number;
+  /** Pilot shelf cost. Not a live supplier quote. */
+  unitKes: number;
+}
+
+export interface PartOrder {
+  id: string;
+  sku: string;
+  qty: number;
+  unitKes: number;
+  status: "requested" | "received";
+  at: string;
+}
+
+export interface FitRecord {
+  seat: boolean;
+  footrest: boolean;
+  brakes: boolean;
+  pressure: boolean;
+  trained: boolean;
+  caregiver: boolean;
+  at?: string;
+  by?: string;
+}
+
+export type FollowOutcome = "using" | "broken" | "given" | "stopped";
+
+export interface AuditEvent {
+  id: string;
+  at: string;
+  actor: string;
+  action: string;
+  ref: string;
 }
 
 export interface Device {
@@ -126,6 +169,7 @@ export interface Device {
   warrantyUntil: string;
   county: string;
   safetyNotice?: string;
+  fit?: FitRecord;
 }
 
 export interface Ticket {
@@ -139,6 +183,7 @@ export interface Ticket {
   openedAt: string;
   closedAt?: string;
   loanDeviceId?: string;
+  partSku?: string;
 }
 
 export interface CarePlan {
@@ -159,14 +204,43 @@ export interface Payment {
   receipt?: string;
   phone: string;
   at: string;
+  /** Sample paybill. Not a registered Safaricom short code. */
+  paybill?: string;
+  account?: string;
+  ratibaMonths?: number;
+}
+
+export type FaultChannel = "ussd" | "whatsapp" | "desk";
+
+export interface FaultMessage {
+  id: string;
+  ticketId?: string;
+  deviceId?: string;
+  channel: FaultChannel;
+  from: "person" | "desk";
+  body: string;
+  at: string;
+}
+
+export interface ClaimDraft {
+  id: string;
+  deviceId: string;
+  preparedAt: string;
+  status: "blocked" | "ready";
+  tariffKes: number | null;
+  costKes: number;
+  gapKes: number;
+  /** fit | handover | tariff | missing */
+  blockers: string[];
 }
 
 export interface FollowUp {
   id: string;
   deviceId: string;
   dueAt: string;
-  kind: "2w" | "3m" | "12m";
+  kind: "2w" | "3m" | "6m" | "12m";
   completedAt?: string;
   stillUsing?: boolean;
+  outcome?: FollowOutcome;
   notes?: string;
 }

@@ -2,6 +2,7 @@ import { Link, Outlet, useRouterState } from "@tanstack/react-router";
 import {
   Activity,
   ClipboardList,
+  FileText,
   Hammer,
   LayoutDashboard,
   Menu,
@@ -18,12 +19,13 @@ import { ROLES, useAfriStore } from "@/lib/store";
 import type { Role } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-const NAV: { to: "/app" | "/app/queue" | "/app/workshop" | "/app/devices" | "/app/service" | "/app/impact"; key: "platformHome" | "queue" | "workshop" | "devices" | "service" | "impact"; icon: typeof LayoutDashboard; roles: Role[] }[] = [
+const NAV: { to: "/app" | "/app/queue" | "/app/workshop" | "/app/devices" | "/app/service" | "/app/claims" | "/app/impact"; key: "platformHome" | "queue" | "workshop" | "devices" | "service" | "claims" | "impact"; icon: typeof LayoutDashboard; roles: Role[] }[] = [
   { to: "/app", key: "platformHome", icon: LayoutDashboard, roles: ["beneficiary", "referrer", "clinician", "technician", "hub", "partner", "admin"] },
   { to: "/app/queue", key: "queue", icon: ClipboardList, roles: ["referrer", "clinician", "admin"] },
   { to: "/app/workshop", key: "workshop", icon: Hammer, roles: ["technician", "admin"] },
   { to: "/app/devices", key: "devices", icon: QrCode, roles: ["technician", "clinician", "hub", "partner", "admin", "beneficiary"] },
   { to: "/app/service", key: "service", icon: Wrench, roles: ["hub", "beneficiary", "clinician", "admin"] },
+  { to: "/app/claims", key: "claims", icon: FileText, roles: ["clinician", "partner", "admin"] },
   { to: "/app/impact", key: "impact", icon: Activity, roles: ["partner", "admin", "clinician"] },
 ];
 
@@ -60,6 +62,7 @@ export function AppShell() {
   const locale = useAfriStore((s) => s.locale);
   const role = useAfriStore((s) => s.role);
   const setRole = useAfriStore((s) => s.setRole);
+  const resetPilot = useAfriStore((s) => s.resetPilot);
   const [open, setOpen] = useState(false);
 
   return (
@@ -88,7 +91,10 @@ export function AppShell() {
           <div className="mt-6 flex-1 overflow-y-auto">
             <NavLinks />
           </div>
-          <p className="pt-4 text-[11px] leading-relaxed text-muted-ink">{t(locale, "demoNote")}</p>
+          <p className="pt-4 text-xs leading-relaxed text-muted-ink">{t(locale, "demoNote")}</p>
+          <button type="button" onClick={() => resetPilot()} className="mt-2 text-left text-xs text-teal-deep">
+            {locale === "sw" ? "Weka upya rekodi za majaribio" : "Reset pilot records"}
+          </button>
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col">
@@ -117,12 +123,18 @@ export function AppShell() {
                     ))}
                   </select>
                   <NavLinks onNavigate={() => setOpen(false)} />
+                  <button type="button" onClick={() => resetPilot()} className="mt-6 text-left text-xs text-teal-deep">
+                    {locale === "sw" ? "Weka upya rekodi za majaribio" : "Reset pilot records"}
+                  </button>
                 </SheetContent>
               </Sheet>
               <Wordmark compact to="/app" />
+              <span className="max-w-24 truncate text-xs font-medium text-forest">
+                {ROLES.find((r) => r.id === role)?.[locale === "sw" ? "sw" : "en"]}
+              </span>
             </div>
-            <p className="hidden text-sm text-muted-ink lg:block">
-              {locale === "sw" ? "Mfumo wa huduma ya teknolojia saidizi" : "Assistive technology service OS"}
+            <p className="hidden text-sm font-medium text-forest lg:block">
+              {ROLES.find((r) => r.id === role)?.[locale === "sw" ? "sw" : "en"]}
             </p>
             <div className="ml-auto flex items-center gap-2">
               <A11yBar />

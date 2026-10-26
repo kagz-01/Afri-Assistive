@@ -206,6 +206,34 @@ var Factory = createLucideIcon("factory", [
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
+var FileText = createLucideIcon("file-text", [
+	["path", {
+		d: "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z",
+		key: "1rqfz7"
+	}],
+	["path", {
+		d: "M14 2v4a2 2 0 0 0 2 2h4",
+		key: "tnqrlb"
+	}],
+	["path", {
+		d: "M10 9H8",
+		key: "b1mrlr"
+	}],
+	["path", {
+		d: "M16 13H8",
+		key: "t4e002"
+	}],
+	["path", {
+		d: "M16 17H8",
+		key: "z1uh3a"
+	}]
+]);
+/**
+* @license lucide-react v0.510.0 - ISC
+*
+* This source code is licensed under the ISC license.
+* See the LICENSE file in the root directory of this source tree.
+*/
 var Hammer = createLucideIcon("hammer", [
 	["path", {
 		d: "m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9",
@@ -517,4 +545,4 @@ var X = createLucideIcon("x", [["path", {
 	key: "d8bk6v"
 }]]);
 //#endregion
-export { Check as _, Stethoscope as a, Menu as c, HeartHandshake as d, Hammer as f, CircleCheck as g, ClipboardList as h, TriangleAlert as i, LayoutDashboard as l, Contrast as m, Wrench as n, ShieldCheck as o, Factory as p, Type as r, QrCode as s, X as t, Languages as u, ArrowRight as v, Activity as y };
+export { CircleCheck as _, Stethoscope as a, Activity as b, Menu as c, HeartHandshake as d, Hammer as f, ClipboardList as g, Contrast as h, TriangleAlert as i, LayoutDashboard as l, Factory as m, Wrench as n, ShieldCheck as o, FileText as p, Type as r, QrCode as s, X as t, Languages as u, Check as v, ArrowRight as y };

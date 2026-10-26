@@ -21,6 +21,8 @@ function QueuePage() {
   const assignReferral = useAfriStore((s) => s.assignReferral);
   const saveAssessment = useAfriStore((s) => s.saveAssessment);
   const signPrescription = useAfriStore((s) => s.signPrescription);
+  const role = useAfriStore((s) => s.role);
+  const clinical = role === "clinician" || role === "admin";
   const [activeId, setActiveId] = useState(referrals[0]?.id ?? "");
   const active = referrals.find((r) => r.id === activeId) ?? referrals[0];
   const person = people.find((p) => p.id === active?.personId);
@@ -83,7 +85,7 @@ function QueuePage() {
             {formatDate(active.createdAt, locale)} · {active.source} · {active.assignedTo ?? (locale === "sw" ? "Haijakabidhiwa" : "Unassigned")}
           </p>
 
-          {active.status === "triage" ? (
+          {clinical && active.status === "triage" ? (
             <div className="mt-6">
               <Label htmlFor="clinician">{locale === "sw" ? "Kabidhi kwa mtaalamu" : "Assign clinician"}</Label>
               <div className="mt-2 flex flex-wrap gap-2">
@@ -103,6 +105,7 @@ function QueuePage() {
             </div>
           ) : null}
 
+          {clinical ? (
           <form
             className="mt-8 grid gap-4 border-t border-line pt-6"
             onSubmit={(e) => {
@@ -135,8 +138,15 @@ function QueuePage() {
             </div>
             <Button type="submit">{locale === "sw" ? "Saini tathmini" : "Sign assessment"}</Button>
           </form>
+          ) : (
+            <p className="mt-6 text-sm text-muted-ink">
+              {locale === "sw"
+                ? "Kliniki ndiyo inayosaini tathmini na maagizo."
+                : "The clinic signs the assessment and the prescription."}
+            </p>
+          )}
 
-          {assessment?.signedAt ? (
+          {clinical && assessment?.signedAt ? (
             <form
               className="mt-6 grid gap-4"
               onSubmit={(e) => {
@@ -167,9 +177,11 @@ function QueuePage() {
             </form>
           ) : null}
 
+          {role === "admin" ? (
           <Button asChild variant="ghost" className="mt-4">
             <Link to="/app/workshop">{locale === "sw" ? "Nenda warsha" : "Go to workshop"}</Link>
           </Button>
+          ) : null}
         </Card>
       ) : null}
     </div>

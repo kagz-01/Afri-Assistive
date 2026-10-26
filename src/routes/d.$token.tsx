@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
+import { DeviceQr } from "@/components/device-qr";
 import { SiteFooter, SiteHeader } from "@/components/layout/site-header";
 import { DeviceBadge } from "@/components/status";
 import { Button } from "@/components/ui/button";
@@ -49,6 +50,17 @@ function PassportPage() {
         </p>
         <h1 className="mt-2 font-display text-3xl font-semibold text-forest">{model.name}</h1>
         <p className="mt-2 text-sm text-muted-ink">{t(locale, "noPii")}</p>
+        <div className="mt-6">
+          <DeviceQr
+            token={device.qrToken}
+            caption={locale === "sw" ? "Alama ya pasipoti" : "Passport mark"}
+          />
+          <p className="mt-3 text-center text-sm text-ink">
+            {locale === "sw"
+              ? "Alama ina anwani ya ukurasa huu tu. Hakuna jina. Inatengenezwa kifaa kinapotolewa, si wakati wa kuchanganua."
+              : "The mark is only the address of this page. It has no name. It is minted when the device is released, not when someone scans."}
+          </p>
+        </div>
         <Card className="mt-6 rounded-xl p-6">
           <CardContent className="grid gap-4 p-0">
             <div className="flex items-center justify-between">

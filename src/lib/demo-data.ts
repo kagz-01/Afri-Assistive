@@ -1,13 +1,17 @@
 import type {
   Assessment,
+  AuditEvent,
   CarePlan,
   Consent,
   Device,
   DeviceModel,
+  FaultMessage,
+  FitRecord,
   FollowUp,
   Person,
   Prescription,
   Referral,
+  SparePart,
   Ticket,
   WorkOrder,
 } from "./types";
@@ -23,8 +27,10 @@ export const MODELS: DeviceModel[] = [
     category: "wheelchair",
     tier: 1,
     priceKes: 26000,
-    costKes: 15000,
+    costKes: 22000,
+    shaTariffKes: 15000,
     standard: "ISO 7176",
+    partSkus: ["TY-24", "BR-B2", "BE-6200", "CU-PR"],
   },
   {
     id: "m-cr",
@@ -33,7 +39,9 @@ export const MODELS: DeviceModel[] = [
     tier: 1,
     priceKes: 2800,
     costKes: 1300,
+    shaTariffKes: 900,
     standard: "ISO 11334",
+    partSkus: ["FE-16"],
   },
   {
     id: "m-fr",
@@ -42,7 +50,9 @@ export const MODELS: DeviceModel[] = [
     tier: 1,
     priceKes: 4500,
     costKes: 2200,
+    shaTariffKes: 500,
     standard: "ISO 11334",
+    partSkus: ["FE-16"],
   },
   {
     id: "m-afo",
@@ -51,7 +61,9 @@ export const MODELS: DeviceModel[] = [
     tier: 2,
     priceKes: 15000,
     costKes: 7500,
+    shaTariffKes: null,
     standard: "ISO 13485 process",
+    partSkus: ["ST-AFO"],
   },
   {
     id: "m-adl",
@@ -60,9 +72,31 @@ export const MODELS: DeviceModel[] = [
     tier: 1,
     priceKes: 900,
     costKes: 300,
+    shaTariffKes: null,
     standard: "Internal QA",
+    partSkus: [],
   },
 ];
+
+export const PARTS: SparePart[] = [
+  { sku: "TY-24", name: "24-inch knobby tyre", modelIds: ["m-wc"], stock: 6, reorderAt: 4, unitKes: 1800 },
+  { sku: "BR-B2", name: "Brake cable B2", modelIds: ["m-wc"], stock: 2, reorderAt: 4, unitKes: 450 },
+  { sku: "BE-6200", name: "Bearing 6200", modelIds: ["m-wc"], stock: 0, reorderAt: 2, unitKes: 650 },
+  { sku: "CU-PR", name: "Pressure-relief cushion", modelIds: ["m-wc"], stock: 3, reorderAt: 2, unitKes: 2200 },
+  { sku: "FE-16", name: "Ferrule 16 mm", modelIds: ["m-fr", "m-cr"], stock: 8, reorderAt: 4, unitKes: 120 },
+  { sku: "ST-AFO", name: "AFO strap set", modelIds: ["m-afo"], stock: 5, reorderAt: 2, unitKes: 350 },
+];
+
+const FITTED: FitRecord = {
+  seat: true,
+  footrest: true,
+  brakes: true,
+  pressure: true,
+  trained: true,
+  caregiver: true,
+  at: "2026-07-21T09:00:00+03:00",
+  by: "Dr. Wanjiku Mwangi, PT",
+};
 
 export const PEOPLE: Person[] = [
   {
@@ -207,7 +241,7 @@ export const REFERRALS: Referral[] = [
     source: "ngo",
     reason: "Above-knee residual limb. Currently using donated chair unsuited to sand.",
     urgency: "soon",
-    status: "assigned",
+    status: "ready",
     assignedTo: CLINICIANS[0],
     createdAt: "2026-09-29T08:20:00+03:00",
   },
@@ -418,6 +452,7 @@ export const DEVICES: Device[] = [
     manufacturedAt: "2026-07-20",
     warrantyUntil: "2027-07-20",
     county: "Kisumu",
+    fit: FITTED,
   },
   {
     id: "d2",
@@ -440,6 +475,7 @@ export const DEVICES: Device[] = [
     manufacturedAt: "2026-07-02",
     warrantyUntil: "2027-07-02",
     county: "Makueni",
+    fit: { ...FITTED, at: "2026-07-03T10:00:00+03:00", by: "Achieng Okello, PT" },
   },
   {
     id: "d4",
@@ -451,6 +487,7 @@ export const DEVICES: Device[] = [
     manufacturedAt: "2026-08-08",
     warrantyUntil: "2027-08-08",
     county: "Nairobi",
+    fit: { ...FITTED, at: "2026-08-09T11:00:00+03:00", by: "Omondi Otieno, OT" },
   },
   {
     id: "d5",
@@ -468,10 +505,31 @@ export const DEVICES: Device[] = [
     serial: "AA-CR-2026-000089",
     qrToken: "8bN6c089",
     modelId: "m-cr",
-    status: "loan",
+    status: "in_stock",
     manufacturedAt: "2026-04-11",
     warrantyUntil: "2027-04-11",
     county: "Kisumu",
+  },
+  {
+    id: "d7",
+    serial: "AA-WC-2026-000201",
+    qrToken: "1pL0w201",
+    modelId: "m-wc",
+    status: "loan",
+    manufacturedAt: "2026-09-02",
+    warrantyUntil: "2027-09-02",
+    county: "Kisumu",
+  },
+  {
+    id: "d8",
+    serial: "AA-WC-2026-000210",
+    qrToken: "3kS4w210",
+    modelId: "m-wc",
+    status: "in_stock",
+    ownerPersonId: "p4",
+    manufacturedAt: "2026-10-05",
+    warrantyUntil: "2027-10-05",
+    county: "Turkana",
   },
 ];
 
@@ -485,7 +543,7 @@ export const TICKETS: Ticket[] = [
     status: "in_progress",
     hub: HUBS[1],
     openedAt: "2026-09-30T07:45:00+03:00",
-    loanDeviceId: "d6",
+    loanDeviceId: "d7",
   },
   {
     id: "t2",
@@ -497,6 +555,7 @@ export const TICKETS: Ticket[] = [
     hub: HUBS[0],
     openedAt: "2026-08-19T12:00:00+03:00",
     closedAt: "2026-08-20T15:30:00+03:00",
+    partSku: "BR-B2",
   },
   {
     id: "t3",
@@ -507,6 +566,27 @@ export const TICKETS: Ticket[] = [
     status: "open",
     hub: HUBS[1],
     openedAt: "2026-10-04T09:00:00+03:00",
+  },
+];
+
+export const MESSAGES: FaultMessage[] = [
+  {
+    id: "msg1",
+    ticketId: "t1",
+    deviceId: "d2",
+    channel: "whatsapp",
+    from: "person",
+    body: "Tyre is flat. Serial AA-WC-2026-000118. We are in Kilifi.",
+    at: "2026-10-02T09:12:00+03:00",
+  },
+  {
+    id: "msg2",
+    ticketId: "t1",
+    deviceId: "d2",
+    channel: "whatsapp",
+    from: "desk",
+    body: "Ticket is open. A loaner chair is with you. Bearing 6200 is out of stock, so the close stays locked.",
+    at: "2026-10-02T09:40:00+03:00",
   },
 ];
 
@@ -548,6 +628,7 @@ export const FOLLOW_UPS: FollowUp[] = [
     completedAt: "2026-08-07",
     stillUsing: true,
     notes: "Training reinforced with daughter.",
+    outcome: "using",
   },
   {
     id: "f2",
@@ -563,12 +644,43 @@ export const FOLLOW_UPS: FollowUp[] = [
     kind: "3m",
     completedAt: "2026-10-01",
     stillUsing: true,
+    outcome: "using",
   },
   {
     id: "f4",
     deviceId: "d4",
     dueAt: "2026-11-08",
     kind: "3m",
+  },
+  {
+    id: "f5",
+    deviceId: "d2",
+    dueAt: "2026-09-01",
+    kind: "12m",
+  },
+];
+
+export const AUDIT: AuditEvent[] = [
+  {
+    id: "log1",
+    at: "2026-07-20T16:00:00+03:00",
+    actor: "Workshop",
+    action: "Released AA-WC-2026-000142 after every QA check",
+    ref: "w1",
+  },
+  {
+    id: "log2",
+    at: "2026-07-21T09:00:00+03:00",
+    actor: "Clinician",
+    action: "Fit lock passed · training and caregiver recorded",
+    ref: "d1",
+  },
+  {
+    id: "log3",
+    at: "2026-08-20T15:30:00+03:00",
+    actor: "Repair hub",
+    action: "Closed brake repair using cable B2",
+    ref: "t2",
   },
 ];
 

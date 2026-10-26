@@ -11,8 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
+import { Route as FaultRouteImport } from './routes/fault'
 import { Route as RequestRouteImport } from './routes/request'
 import { Route as AppIndexRouteImport } from './routes/app/index'
+import { Route as AppClaimsRouteImport } from './routes/app/claims'
 import { Route as AppDevicesRouteImport } from './routes/app/devices'
 import { Route as AppImpactRouteImport } from './routes/app/impact'
 import { Route as AppQueueRouteImport } from './routes/app/queue'
@@ -30,6 +32,11 @@ const AppRoute = AppRouteImport.update({
   path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaultRoute = FaultRouteImport.update({
+  id: '/fault',
+  path: '/fault',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RequestRoute = RequestRouteImport.update({
   id: '/request',
   path: '/request',
@@ -38,6 +45,11 @@ const RequestRoute = RequestRouteImport.update({
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppClaimsRoute = AppClaimsRouteImport.update({
+  id: '/claims',
+  path: '/claims',
   getParentRoute: () => AppRoute,
 } as any)
 const AppDevicesRoute = AppDevicesRouteImport.update({
@@ -74,7 +86,9 @@ const DTokenRoute = DTokenRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/fault': typeof FaultRoute
   '/request': typeof RequestRoute
+  '/app/claims': typeof AppClaimsRoute
   '/app/devices': typeof AppDevicesRoute
   '/app/impact': typeof AppImpactRoute
   '/app/queue': typeof AppQueueRoute
@@ -85,7 +99,9 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/fault': typeof FaultRoute
   '/request': typeof RequestRoute
+  '/app/claims': typeof AppClaimsRoute
   '/app/devices': typeof AppDevicesRoute
   '/app/impact': typeof AppImpactRoute
   '/app/queue': typeof AppQueueRoute
@@ -98,7 +114,9 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/fault': typeof FaultRoute
   '/request': typeof RequestRoute
+  '/app/claims': typeof AppClaimsRoute
   '/app/devices': typeof AppDevicesRoute
   '/app/impact': typeof AppImpactRoute
   '/app/queue': typeof AppQueueRoute
@@ -112,7 +130,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/app'
+    | '/fault'
     | '/request'
+    | '/app/claims'
     | '/app/devices'
     | '/app/impact'
     | '/app/queue'
@@ -123,7 +143,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/fault'
     | '/request'
+    | '/app/claims'
     | '/app/devices'
     | '/app/impact'
     | '/app/queue'
@@ -135,7 +157,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/app'
+    | '/fault'
     | '/request'
+    | '/app/claims'
     | '/app/devices'
     | '/app/impact'
     | '/app/queue'
@@ -148,6 +172,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AppRoute: typeof AppRouteWithChildren
+  FaultRoute: typeof FaultRoute
   RequestRoute: typeof RequestRoute
   DTokenRoute: typeof DTokenRoute
 }
@@ -168,6 +193,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/fault': {
+      id: '/fault'
+      path: '/fault'
+      fullPath: '/fault'
+      preLoaderRoute: typeof FaultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/request': {
       id: '/request'
       path: '/request'
@@ -180,6 +212,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/app/'
       preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/claims': {
+      id: '/app/claims'
+      path: '/claims'
+      fullPath: '/app/claims'
+      preLoaderRoute: typeof AppClaimsRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/devices': {
@@ -228,6 +267,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppClaimsRoute: typeof AppClaimsRoute
   AppDevicesRoute: typeof AppDevicesRoute
   AppImpactRoute: typeof AppImpactRoute
   AppQueueRoute: typeof AppQueueRoute
@@ -237,6 +277,7 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppClaimsRoute: AppClaimsRoute,
   AppDevicesRoute: AppDevicesRoute,
   AppImpactRoute: AppImpactRoute,
   AppQueueRoute: AppQueueRoute,
@@ -250,6 +291,7 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AppRoute: AppRouteWithChildren,
+  FaultRoute: FaultRoute,
   RequestRoute: RequestRoute,
   DTokenRoute: DTokenRoute,
 }
