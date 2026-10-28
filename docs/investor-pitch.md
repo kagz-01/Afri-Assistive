@@ -23,7 +23,7 @@ A working pilot, in English and Kiswahili, with synthetic Kenyan households.
 - A tariff-gap ledger. The claim pack is blocked when the fit is open, the device is not handed over, or no tariff exists.
 - Follow-up at 2 weeks, 6 months, and 12 months. Answers are still using, broken, or given away. Broken opens a repair.
 - A QR passport with no name on the public face.
-- Four boards: household, clinic, workshop, county. The county total hides a count small enough to name a household.
+- Seven roles on four jobs: household, referrer, clinic, workshop, repair hub, county, and ops. The referrer cannot sign. The hub cannot release a new device. The county total hides a count small enough to name a household, and the partner’s device list has no owner name.
 - A sample care-plan receipt. Paybill `880155`. No money moves.
 
 You can click through all of that in one sitting. Reset the pilot records first.
@@ -65,13 +65,13 @@ Talk to the county health team and the rehab department first. An “AI platform
 
 ## Five minutes in the room
 
-Reset the pilot. Then, in this order:
+Reset the pilot. The role name is in the top bar. Then, in this order:
 
-1. **County board.** Still in use, overdue checks, the unfunded gap, open spare orders. Point at the gap. Say it is not a claim.
-2. **Workshop radio.** A spare at zero. Show that the repair cannot close. Show a job that cannot be released until QA is complete.
-3. **Clinic day.** A device that cannot be handed over. Tick the six checks only if you want them to see the lock open. Otherwise leave it locked.
+1. **Partner / payer.** County board. Still in use, overdue checks, the unfunded gap, open spare orders. Point at the gap. Say it is not a claim. The device list shows serial and county, not the owner’s name.
+2. **Workshop.** A spare at zero. Show that the repair cannot close. Show a job that cannot be released until QA is complete. Switch to **Repair hub** only if someone asks: that radio has no release button.
+3. **Clinician.** Clinic day. A device that cannot be handed over. Tick the six checks only if you want them to see the lock open. Otherwise leave it locked. The community referrer does not have this screen.
 4. **Passport.** The QR, the serial, and the sentence that the name is not on the page.
-5. **Claims.** A pack that stays blocked.
+5. **Claims.** A pack that stays blocked. A clinician or a partner can open it. The referrer cannot.
 
 Stop there. Do not open the paybill and call it revenue.
 

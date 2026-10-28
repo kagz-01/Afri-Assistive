@@ -29,6 +29,54 @@ flowchart LR
   follow -->|still using| follow
 ```
 
+## Which role owns each step
+
+The chain above is the service. This is who is allowed to move it, and which screen they use. A later role cannot tick an earlier box.
+
+| Step | Who moves it | Screen | What stops the next step |
+|---|---|---|---|
+| 1. Referral | Community referrer, or the public request form | `/request`, then the referrer board and `/app/queue` | Nothing is signed yet. The referrer can only see status. |
+| 2. Assessment | Clinician | `/app/queue` | The assessment is unsigned. |
+| 3. Prescription | Clinician | `/app/queue` | The device and size are unsigned. Signing creates the work order. |
+| 4. Funding | Clinician sends the prompt. Partner reads the gap. | Clinic day, `/app/claims`, county board | A listed tariff is not cash. The gap is not an SHA claim. A device with no tariff cannot be packed as one. |
+| 5. Preparation | Workshop | Workshop radio and `/app/workshop` | Release stays off until every QA check is ticked. The repair hub does not see this list. |
+| 6. Fitting | Clinician | Clinic day and `/app/devices` | Handover stays off until all six fit checks are ticked. |
+| 7. Training | Clinician, with the person | The same fit lock. One of the six checks is training in the person's language. | An unticked training line blocks handover. |
+| 8. Follow-up | Clinician records it. The household sees the next date. | Clinic day and My care | Due at 2 weeks, 6 months, and 12 months. The answer is still using, broken, or given away. |
+
+Repair sits on step 8, not on a ninth step. Broken opens a ticket. The workshop or the repair hub closes it, and only when the spare is in stock. The household can see the ticket. They cannot close it.
+
+```mermaid
+flowchart TB
+  subgraph referrer [Referrer]
+    req[1 Referral]
+  end
+  subgraph clinic [Clinician]
+    assess[2 Assessment]
+    rx[3 Prescription]
+    fund[4 Funding prompt]
+    fit[6 Fit and 7 Training]
+    follow[8 Follow-up]
+  end
+  subgraph workshop [Workshop]
+    qa[5 QA and release]
+  end
+  subgraph hub [Repair hub]
+    repair[Close repair]
+  end
+  subgraph house [Household]
+    care[My care]
+  end
+  subgraph payer [Partner]
+    board[County board]
+  end
+  req --> assess --> rx --> fund --> qa --> fit --> care
+  fit --> follow
+  follow -->|broken| repair --> care
+  follow -->|still using or given away| board
+  fund --> board
+```
+
 ## Who sees which board
 
 The home page at `/app` is not one dashboard. Open the platform, then choose a role. The name of that role stays in the top bar. The switcher is a demo. It is not a staff login.

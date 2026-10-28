@@ -4,7 +4,7 @@ Written for the founder. They describe the pilot as it runs, not a contracted se
 
 | Document | Read it when |
 |---|---|
-| [System flow](system-flow.md) | You need the path a device takes, the four boards, and the rules that stop a step |
+| [System flow](system-flow.md) | You need the eight steps, which role owns each one, and the rules that stop the next step |
 | [Investor pitch](investor-pitch.md) | You are walking into a meeting. Includes a five-minute demo and the sentences not to say |
 | [Innovation and viability](innovation-and-viability.md) | You need the case: abandonment, the tariff gap, and who could pay |
 

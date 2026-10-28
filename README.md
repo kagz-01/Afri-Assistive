@@ -17,25 +17,32 @@ Public pages:
 | `/fault` | Report a fault, phone-shaped or desk-shaped |
 | `/d/$token` | Public passport. No name on the page |
 
-Inside `/app`, the home board depends on the role you pick:
+Inside `/app`, the home board depends on the role you pick. The role name stays in the top bar. The switcher is a demo, not a login.
 
 | Role | Board |
 |---|---|
 | Beneficiary | My care |
-| Referrer, clinician | Clinic day |
-| Technician, hub | Workshop radio |
-| Partner, admin | County board |
+| Community referrer | Referral list. Status only |
+| Clinician | Clinic day |
+| Workshop | Workshop radio, including QA release |
+| Repair hub | Workshop radio, without QA release |
+| Partner / payer | County board. Device list has no owner names |
+| Ops / DPO | County board, plus the audit |
 
-Other rooms: queue, workshop and QA, device registry, repairs desk, SHA claim packs, impact.
+The full map of who owns each of the eight steps is in [docs/system-flow.md](docs/system-flow.md).
+
+Other rooms, only for the roles that may use them: queue, workshop and QA, device registry, repairs, SHA claim packs, impact.
 
 English and Kiswahili, text size, and contrast are in the bar on every page.
 
 ## What the pilot will not do
 
 - Hand over a device with an unsigned fit lock.
+- Let a referrer sign an assessment, a prescription, or a fit.
+- Let the repair hub release a new device. That stays with the workshop.
 - Close a repair while the failed spare is at zero.
 - Write a claim for a gap the listed tariff does not cover, or for a device that is not fitted and handed over.
-- Put the owner’s name, place, or health information on the public passport.
+- Put the owner’s name on the partner’s device list, or on the public passport.
 - Show a county total small enough to identify one household.
 
 ## Documents
